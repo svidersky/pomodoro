@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pomodoro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-phase="focus">
+  <main class="card">
+    <p id="phase-label" class="phase-label">Focus</p>
+    <p id="time" class="time" aria-live="off">30:00</p>
+    <p id="status" class="status">Ready</p>
+
+    <div class="controls">
+      <button id="start" class="primary">Start</button>
+      <button id="reset-phase">Reset Phase</button>
+      <button id="skip">Skip</button>
+    </div>
+
+    <p class="count">Pomodoros: <strong id="count">0</strong></p>
+
+    <details class="settings">
+      <summary>Settings</summary>
+      <label>Focus (minutes)
+        <input id="focus-min" type="number" min="1" max="180" step="1" value="30">
+      </label>
+      <label>Break (minutes)
+        <input id="break-min" type="number" min="1" max="180" step="1" value="7">
+      </label>
+      <p class="hint">Changes apply from the next Phase.</p>
+      <button id="reset-all" class="danger">Reset All</button>
+    </details>
+  </main>
+  <script src="timer.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

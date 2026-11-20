@@ -1,0 +1,125 @@
+:root {
+  --bg: #faf7f5;
+  --card: #ffffff;
+  --text: #1f1d1c;
+  --muted: #6b6662;
+  --border: #e4dfdb;
+  --focus: #c8463d;
+  --break: #2f8a5b;
+  --accent: var(--focus);
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161514;
+    --card: #211f1e;
+    --text: #f2efed;
+    --muted: #a39d98;
+    --border: #3a3633;
+    --focus: #e8675d;
+    --break: #4fbf86;
+  }
+}
+
+body[data-phase="break"] { --accent: var(--break); }
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  transition: background-color 0.3s;
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px 24px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top: 6px solid var(--accent);
+  border-radius: 16px;
+  text-align: center;
+}
+
+.phase-label {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.time {
+  margin: 8px 0 0;
+  font-size: clamp(4rem, 20vw, 6rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.status { margin: 8px 0 24px; color: var(--muted); }
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+button {
+  font: inherit;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+button:hover { border-color: var(--accent); }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+button.primary {
+  min-width: 110px;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+button.danger { color: var(--focus); }
+
+.count { margin: 24px 0 0; color: var(--muted); }
+.count strong { color: var(--text); }
+
+.settings {
+  margin-top: 24px;
+  text-align: left;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+.settings summary { cursor: pointer; color: var(--muted); }
+.settings label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+.settings input {
+  width: 80px;
+  font: inherit;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+}
+.hint { font-size: 0.85rem; color: var(--muted); }
