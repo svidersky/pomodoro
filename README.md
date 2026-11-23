@@ -19,6 +19,8 @@ Open `index.html` in a browser (double-click works), or use the GitHub Pages lin
 
 Open `tests.html` in a browser. It runs every timer rule against a fake clock and shows a green/red list.
 
+Or run them in a terminal with `node run-tests.js`. GitHub runs the same command on every pull request (the `timer-tests` check).
+
 ## Files
 
 | File | What it does |
@@ -27,5 +29,7 @@ Open `tests.html` in a browser. It runs every timer rule against a fake clock an
 | `style.css` | Look and colours |
 | `timer.js` | Timer rules only — no screen code |
 | `app.js` | Screen, buttons, sound, notifications, saved Settings |
-| `tests.html` | Tests for `timer.js` |
+| `tests.js` | The tests for `timer.js` |
+| `tests.html` | Shows the test results in a browser |
+| `run-tests.js` | Runs the tests in a terminal / GitHub |
 | `CONTEXT.md` | Glossary of terms |
