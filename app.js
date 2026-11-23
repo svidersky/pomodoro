@@ -37,6 +37,7 @@ function format(ms) {
 function render() {
   const t = timer.snapshot();
   document.body.dataset.phase = t.phase;
+  document.body.dataset.state = t.running ? "running" : (t.untouched ? "ready" : "paused");
   els.label.textContent = PHASE_NAMES[t.phase];
   els.time.textContent = format(t.remainingMs);
   els.count.textContent = t.count;

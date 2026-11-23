@@ -123,3 +123,43 @@ button.danger { color: var(--focus); }
   color: var(--text);
 }
 .hint { font-size: 0.85rem; color: var(--muted); }
+
+/* Attention cues. body[data-state] is "ready" | "running" | "paused" (set in app.js). */
+@media (prefers-reduced-motion: no-preference) {
+  /* Paused: the digits micro-bounce and the Resume button shines every second. */
+  body[data-state="paused"] .time { animation: bounce 2.4s ease-in-out infinite; }
+  body[data-state="paused"] #start { animation: shine 1s ease-in-out infinite; }
+
+  /* A Break is waiting to start (the Focus just ran out): the whole card glows green. */
+  body[data-phase="break"][data-state="ready"] .card { animation: glow 3s ease-in-out infinite; }
+}
+
+/* Reduced motion: no movement, but the waiting Break still gets a static green cue. */
+@media (prefers-reduced-motion: reduce) {
+  body[data-phase="break"][data-state="ready"] .card {
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--break) 50%, transparent),
+                0 0 24px color-mix(in srgb, var(--break) 30%, transparent);
+  }
+}
+
+@keyframes bounce {
+  0%, 55%, 100% { transform: translateY(0); }
+  12% { transform: translateY(-8px); }
+  24% { transform: translateY(0); }
+  34% { transform: translateY(-3px); }
+  44% { transform: translateY(0); }
+}
+
+@keyframes shine {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 0%, transparent); filter: brightness(1); }
+  50%      { box-shadow: 0 0 9px 2px color-mix(in srgb, var(--accent) 60%, transparent); filter: brightness(1.15); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--break) 0%, transparent),
+                         0 0 40px 8px color-mix(in srgb, var(--break) 30%, transparent),
+                         inset 0 0 50px 0 color-mix(in srgb, var(--break) 12%, transparent); }
+  50%      { box-shadow: 0 0 0 4px color-mix(in srgb, var(--break) 40%, transparent),
+                         0 0 110px 36px color-mix(in srgb, var(--break) 55%, transparent),
+                         inset 0 0 120px 10px color-mix(in srgb, var(--break) 30%, transparent); }
+}
