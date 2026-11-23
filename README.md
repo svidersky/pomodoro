@@ -7,6 +7,7 @@ A minimal Pomodoro timer that runs in the browser — plain HTML, CSS and JavaSc
 - Each Phase waits for you to press Start
 - Chime + desktop notification when a Phase ends
 - Colour changes per Phase; follows your light/dark mode
+- Attention cues: when paused, the time bounces and the Resume button shines; when a Break is waiting to start, the card glows green (static glow if your system prefers reduced motion)
 
 See [CONTEXT.md](CONTEXT.md) for the exact meaning of each term.
 
