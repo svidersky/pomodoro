@@ -86,8 +86,26 @@ function askNotificationPermission() {
   } catch (_) {}
 }
 
+// One repeat of the chime, a minute after Focus ends, if the Break still hasn't been started.
+const REMINDER_DELAY_MS = 60_000;
+let reminderTimer = null;
+function cancelReminder() {
+  clearTimeout(reminderTimer);
+  reminderTimer = null;
+}
+function scheduleReminder() {
+  cancelReminder();
+  reminderTimer = setTimeout(() => {
+    reminderTimer = null;
+    const t = timer.snapshot();
+    if (t.phase === "break" && t.untouched) playChime(); // Break not begun: remind once
+  }, REMINDER_DELAY_MS);
+}
+
 function alertPhaseEnd(ended) {
+  cancelReminder();
   playChime();
+  if (ended === "focus") scheduleReminder();
   try {
     if (!("Notification" in window) || Notification.permission !== "granted") return;
     const body = ended === "focus"
@@ -110,13 +128,14 @@ function onSettingChange(key, input) {
 // ---- Wire up ----
 els.start.addEventListener("click", () => {
   if (timer.snapshot().running) timer.pause();
-  else { unlockAudio(); askNotificationPermission(); timer.start(); }
+  else { cancelReminder(); unlockAudio(); askNotificationPermission(); timer.start(); }
   render();
 });
-els.resetPhase.addEventListener("click", () => { timer.resetPhase(); render(); });
-els.skip.addEventListener("click", () => { timer.skip(); render(); });
+els.resetPhase.addEventListener("click", () => { cancelReminder(); timer.resetPhase(); render(); });
+els.skip.addEventListener("click", () => { cancelReminder(); timer.skip(); render(); });
 els.resetAll.addEventListener("click", () => {
   if (!confirm("Reset everything? This sets the Pomodoro count back to 0.")) return;
+  cancelReminder();
   timer.resetAll();
   render();
 });
